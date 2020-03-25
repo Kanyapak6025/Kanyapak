@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    container_name: docker-node-mongo
+    restart: always
+    build: ./project-numer
+    ports:
+      - '80:3000'
+    links:
+      - mongo
+  api:
+    container_name: api
+    build: ./server
+    ports:
+      - '4444:4444'
+    depends_on: 
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
